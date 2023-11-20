@@ -5,9 +5,10 @@ import entities.Elemento;
 import entities.Escolha;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 public class JokenpoGame extends javax.swing.JFrame {
-    
+    Computer computer = new Computer();
     int numeroEscolha;
     private Map<Integer, Elemento> mapaElementos;
     
@@ -189,6 +190,7 @@ public class JokenpoGame extends javax.swing.JFrame {
         
         numeroEscolha = 2;
         jogadaJogador();
+        determinarVencedor();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -196,6 +198,7 @@ public class JokenpoGame extends javax.swing.JFrame {
         
         numeroEscolha = 3;
         jogadaJogador();
+        determinarVencedor();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -203,14 +206,14 @@ public class JokenpoGame extends javax.swing.JFrame {
         
         numeroEscolha = 1;
         jogadaJogador();
+        determinarVencedor();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void j1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_j1AncestorAdded
         
     }//GEN-LAST:event_j1AncestorAdded
 
-    private void jogadaJogador() { 
-        Computer computer = new Computer();
+    private void jogadaJogador() {  
         Escolha escolha = computer.gerarEscolhaComputador();
         //Elemento elementoEscolhidoComputador = converterStringParaElemento(escolhaComputadorString);
         j1.setIcon(new javax.swing.ImageIcon(getClass().getResource(escolha.getImagem())));
@@ -232,10 +235,17 @@ public class JokenpoGame extends javax.swing.JFrame {
         }
     }
     
-    private String determinarVencedor(Elemento jogador, Elemento computador) {
-    
-    return null;
-    }
+    private void determinarVencedor() {
+        if (numeroEscolha == computer.gerarEscolhaComputador().getValor()) {
+            JOptionPane.showMessageDialog(null, "Empate.");
+        } else {
+            if ((numeroEscolha == 1 && computer.gerarEscolhaComputador().getValor() == 3) || (numeroEscolha == 2 && computer.gerarEscolhaComputador().getValor() == 1) || (numeroEscolha == 3 && computer.gerarEscolhaComputador().getValor() == 2)) {
+            JOptionPane.showMessageDialog(null, "Jogador venceu.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Computador venceu.");
+            }
+        }   
+    }    
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
